@@ -7,30 +7,15 @@ namespace GradeBook{
     {
         static void Main(string[] args)
         {
-            //double[] numbers;
-            //numbers[0] = 10.7; [BIG Doubt - numbers are not intialized]
-
-            // var numbers = new double[3];
-            // numbers[0] = 12.7;
-            // numbers[1] = 10.3;
-            // numbers[2] = 6.11;
-            // var result = numbers[0] + numbers[1];
-            // result = result + numbers[2];
-            // Console.WriteLine(result);
-
-            //var numbers = new[] {12.7, 10.3, 6.11, 4.1};           
-            //System.Console.WriteLine(result);
-            
-            // Arrays and lists share a lot of the same behaviour, however list are more dynamic[addition of elements to the list] and arrays have a definative size.
-            // var grades = new List<double>();
-            // grades.Add(56.1);
+            var book = new Book("Aarti's Grade Book");
+            book.AddGrade(89.1);
+            // book.grades.add(79.0) will show error as grades is a variable declared private to be only used in Book class. 
 
             var grades = new List<double>() {12.7, 10.3, 6.11, 4.1};
             grades.Add(56.1);
 
-
             var result = 0.0;
-            var count = grades.Count();
+            var count = grades.Count;
             foreach(var grade in grades)
             {
                 result += grade;
@@ -40,14 +25,14 @@ namespace GradeBook{
             Console.WriteLine($"The Average is {Average:N2}"); // Average:N2 formatted the result to give 2 digits after decimal point.
 
 
-            if(args.Length > 0)
-            {
-                Console.WriteLine($"Hello, {args[0]} !");
-            }
-            else
-            {
-                Console.WriteLine("Hello!!");
-            }
+            // if(args.Length > 0)
+            // {
+            //     Console.WriteLine($"Hello, {args[0]} !");
+            // }
+            // else
+            // {
+            //     Console.WriteLine("Hello!!");
+            // }
         }
     }
 }
@@ -66,8 +51,39 @@ namespace GradeBook{
 
 // dotnet run --project <path> -> to run program.cs outside the project folder. dotnet run internally runs 'restore' and 'build' command. 
 
-
-
 // [implicit typing] - letting c# decide the type of variable by using var type to declare and assign a variable. However, if assigning a variable with double value and then assigning that variable a string value is invalid.
 // (valid in javascript). // double can take int, float values. 
+
+            //double[] numbers;
+            //numbers[0] = 10.7; [BIG Doubt - numbers are not intialized]
+
+            // var numbers = new double[3];
+            // numbers[0] = 12.7;
+            // numbers[1] = 10.3;
+            // numbers[2] = 6.11;
+            // var result = numbers[0] + numbers[1];
+            // result = result + numbers[2];
+            // Console.WriteLine(result);
+
+            //var numbers = new[] {12.7, 10.3, 6.11, 4.1};           
+            //System.Console.WriteLine(result);
+            
+            // Arrays and lists share a lot of the same behaviour, however list are more dynamic[addition of elements to the list] and arrays have a definative size.
+            // var grades = new List<double>();
+            // grades.Add(56.1);
+
+
 // System.Console.WriteLine(); --> the type/class of console comes from System and hence if "using System;" statement is mentioned, just "Console.Write();" works
+// classes must be present inside a namespace.
+// classes without namespaces are legally, however, may cause clashes with the classes in the global namespace.
+// legal to have more than one class per namespace. Preferred to have one class per .cs file.
+
+// methods have () like .add() , whereas properties dont have () like .Count 
+
+// Build an abstraction for the following reasons:
+// what is the behaviour?
+// what is the state/or data it holds?
+
+// CLR/System.NullReferenceException happens check for variables not initalized.
+
+// this is used when field with the same name as the parameter send into method.
