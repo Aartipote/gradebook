@@ -7,23 +7,21 @@ namespace GradeBook{
     {
         static void Main(string[] args)
         {
+            // var p = new Program();
+            // p.Main(args); // Main being static cannot be accessed via instance reference 
+            // Program.Main(args); // static methos is accessed by type(/class) name 
+
             var book = new Book("Aarti's Grade Book");
             book.AddGrade(89.1);
+            book.AddGrade(90.5);
+            book.AddGrade(77.5);
+            book.ShowStatistics();
+
             // book.grades.add(79.0) will show error as grades is a variable declared private to be only used in Book class. 
+            // However if it was declared to be public then it could be accessed.
 
-            var grades = new List<double>() {12.7, 10.3, 6.11, 4.1};
-            grades.Add(56.1);
-
-            var result = 0.0;
-            var count = grades.Count;
-            foreach(var grade in grades)
-            {
-                result += grade;
-            }
-            var Average = (result / count); // or result /= grades.Count; 
-            //Console.WriteLine(Average);
-            Console.WriteLine($"The Average is {Average:N2}"); // Average:N2 formatted the result to give 2 digits after decimal point.
-
+            // var grades = new List<double>() {12.7, 10.3, 6.11, 4.1}; 
+            // grades.Add(56.1);
 
             // if(args.Length > 0)
             // {
@@ -86,4 +84,7 @@ namespace GradeBook{
 
 // CLR/System.NullReferenceException happens check for variables not initalized.
 
-// this is used when field with the same name as the parameter send into method.
+// "this" keyword is used when field with the same name as the parameter send into method.
+
+// statics are not associated with an object instance i.e, object reference is requied for non-static field, method or property.
+// Static methods are accessed by class name only 
