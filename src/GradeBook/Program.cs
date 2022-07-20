@@ -15,7 +15,11 @@ namespace GradeBook{
             book.AddGrade(89.1);
             book.AddGrade(90.5);
             book.AddGrade(77.5);
-            book.ShowStatistics();
+            var stats = book.GetStatistics();
+
+            Console.WriteLine($"The Average is {stats.Average:N2}"); // Average:N2 formatted the result to give 2 digits after decimal point.
+            Console.WriteLine($"The highGrade is {stats.highGrade}");
+            Console.WriteLine($"The lowGrade is {stats.lowGrade}");
 
             // book.grades.add(79.0) will show error as grades is a variable declared private to be only used in Book class. 
             // However if it was declared to be public then it could be accessed.

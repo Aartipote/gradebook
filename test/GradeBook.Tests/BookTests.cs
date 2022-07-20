@@ -1,4 +1,8 @@
-namespace GradeBook.Tests;
+using System;
+using Xunit;
+
+namespace GradeBook.Tests
+{
 
 public class BookTests
 {
@@ -15,13 +19,14 @@ public class BookTests
         var result = book.GetStatistics();
         
         //assert
-        Assert.Equals(85.6, Average);
-        Assert.Equals(90.5, highGrade);
-        Assert.Equals(77.3, lowGrade);
+        Assert.Equal(85.6, result.Average, 1);
+        Assert.Equal(90.5, result.highGrade);
+        Assert.Equal(77.3, result.lowGrade);
+
     
     }
 }
-
+}
 // Notes:
 
 // dotnet new xunit --> it creates required tests project files. 

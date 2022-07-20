@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace GradeBook
 {  
-      class Book
+      public class Book // by default have the access modifier as internal which causes the methods, fields being restricted to be accessed only inside the project.
       {
         private List<double> grades;
         private string name;
@@ -17,25 +17,38 @@ namespace GradeBook
             grades.Add(grade);
         }
 
-        public void ShowStatistics()
+        public Statistics GetStatistics()
         {
-            var result = 0.0;
-            var count = grades.Count;
-            var highGrade = double.MinValue;
-            var lowGrade = double.MaxValue;
+            var result = new Statistics();
+            result.Average = 0.0;
+            result.highGrade = double.MinValue;
+            result.lowGrade = double.MaxValue;
 
-             foreach(var number in grades)
+             foreach(var grade in grades)
             {
-                highGrade = Math.Max(number, highGrade);
-                lowGrade = Math.Min(number, lowGrade);
-                result += number;
+                result.highGrade  = Math.Max(grade, result.highGrade);
+                result.lowGrade = Math.Min(grade, result.lowGrade);
+                result.Average += grade;
             }
 
-            var Average = (result / count); // or result /= grades.Count; 
+             result.Average /= grades.Count; 
 
-            Console.WriteLine($"The Average is {Average:N2}"); // Average:N2 formatted the result to give 2 digits after decimal point.
-            Console.WriteLine($"The highGrade is {highGrade}");
-            Console.WriteLine($"The lowGrade is {lowGrade}");
+             return result;
+
+            // var result = 0.0;
+            // var count = grades.Count;
+            // var highGrade = double.MinValue;
+            // var lowGrade = double.MaxValue;
+
+            //  foreach(var number in grades)
+            // {
+            //     highGrade = Math.Max(number, highGrade);
+            //     lowGrade = Math.Min(number, lowGrade);
+            //     result += number;
+            // }
+
+            // var Average = (result / count); // or result /= grades.Count; 
+
         }
 
     }

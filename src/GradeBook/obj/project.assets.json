@@ -8,24 +8,30 @@
     "net6.0": []
   },
   "packageFolders": {
-    "C:\\Users\\AARTI\\.nuget\\packages\\": {}
+    "C:\\Users\\aarte.pote\\.nuget\\packages\\": {},
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\AARTI\\Desktop\\gradebook\\src\\GradeBook\\GradeBook.csproj",
+      "projectUniqueName": "C:\\Users\\aarte.pote\\Desktop\\gradebook\\src\\GradeBook\\GradeBook.csproj",
       "projectName": "GradeBook",
-      "projectPath": "C:\\Users\\AARTI\\Desktop\\gradebook\\src\\GradeBook\\GradeBook.csproj",
-      "packagesPath": "C:\\Users\\AARTI\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\AARTI\\Desktop\\gradebook\\src\\GradeBook\\obj\\",
+      "projectPath": "C:\\Users\\aarte.pote\\Desktop\\gradebook\\src\\GradeBook\\GradeBook.csproj",
+      "packagesPath": "C:\\Users\\aarte.pote\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\aarte.pote\\Desktop\\gradebook\\src\\GradeBook\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+      ],
       "configFilePaths": [
-        "C:\\Users\\AARTI\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\aarte.pote\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
