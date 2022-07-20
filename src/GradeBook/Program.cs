@@ -92,3 +92,6 @@ namespace GradeBook{
 
 // statics are not associated with an object instance i.e, object reference is requied for non-static field, method or property.
 // Static methods are accessed by class name only 
+
+// dotnet new sln - in the main application folder creates a one point execution for running src and test projects.
+// dotnet sln add <project-path> - adds the different projects to dotnet solution.
