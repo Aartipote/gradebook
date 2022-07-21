@@ -45,6 +45,10 @@ namespace GradeBook{
 
 // .NET is a runtime, .NET provides space for programs to be run, manage memory and give instructions to the processors. It also provides library.
 
+// <dotnet new> creates a .net project and asks for template the project would use.
+
+// <dotnet new console> will create a template for console application
+
 // dotnet --info -> shows the version of sdk, runtime environment information, version of the runtime.
 
 // dotnet restore -> looks into .csproj file for any other external required dependencies. Sometimes libararies are not enough...some features are available through NuGet package 
@@ -52,6 +56,11 @@ namespace GradeBook{
 // dotnet build -> compile the source code. It builds a efficient binary representation of source code with .dll extension.
 
 // dotnet run --project <path> -> to run program.cs outside the project folder. dotnet run internally runs 'restore' and 'build' command. 
+
+//Run a dll file: <dotnet <path_to_dll_file> >
+
+// dotnet run Aarti - Aarti is a parameter passed to dotnet cli (command line interface)
+// dotnet run -- Aarti - Aarti is a parameter passed to application
 
 // [implicit typing] - letting c# decide the type of variable by using var type to declare and assign a variable. However, if assigning a variable with double value and then assigning that variable a string value is invalid.
 // (valid in javascript). // double can take int, float values. 

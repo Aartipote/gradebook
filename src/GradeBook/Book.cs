@@ -5,12 +5,12 @@ namespace GradeBook
       public class Book // by default have the access modifier as internal which causes the methods, fields being restricted to be accessed only inside the project.
       {
         private List<double> grades;
-        private string name;
+        public string Name;
 
         public Book(string name)
         {
             grades = new List<double>();
-            this.name = name;
+            Name = name;
         }
         public void AddGrade(double grade)
         {
