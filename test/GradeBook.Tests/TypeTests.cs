@@ -6,6 +6,7 @@ namespace GradeBook.Tests
 
 public class TypeTests
 {
+
     [Fact]
     public void GetBookReturnsDifferentObjects()
     {
@@ -16,6 +17,45 @@ public class TypeTests
         Assert.Equal("Book 2", book2.Name);
     }
 
+       Book GetBook(string name)
+    {
+        return new Book(name);
+    }
+
+    [Fact]
+    public void CSharpCanPassByRef()
+    {
+
+        var book1 = GetBook("Book 1"); 
+        // var book1 = new Book("Book 1");
+        GetBookSetNameByRef(ref book1, "NewBook") ; 
+       
+        Assert.Equal("NewBook", book1.Name);
+    }
+
+    private void GetBookSetNameByRef(ref Book book, string name)
+    {
+        book = new Book(name);
+    }
+
+
+    [Fact]
+    public void CSharpIsPassByValue()
+    {
+
+        var book1 = GetBook("Book 1"); 
+        // var book1 = new Book("Book 1");
+        GetBookSetName(book1, "NewBook") ; 
+       
+        Assert.Equal("Book 1", book1.Name);
+    }
+
+    private void GetBookSetName(Book book, string name)
+     {
+        book = new Book(name);
+        // book.Name = name;
+     }
+
 
     [Fact]
     public void CanSetNameFromReference()
@@ -24,6 +64,11 @@ public class TypeTests
         SetName(book1, "NewBook") ; 
        
         Assert.Equal("NewBook", book1.Name);
+    }
+
+    private void SetName(Book book, string name)
+    { 
+        book.Name = name;
     }
 
 
@@ -37,15 +82,6 @@ public class TypeTests
         Assert.True(Object.ReferenceEquals(book1, book2));
     }
 
-    Book GetBook(string name)
-    {
-        return new Book(name);
-    }
-
-     private void SetName(Book book, string name)
-     {
-        book.Name = name;
-     }
 }
 }
 // Notes:
