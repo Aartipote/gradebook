@@ -6,6 +6,38 @@ namespace GradeBook.Tests
 
 public class TypeTests
 {
+    [Fact]
+    public void StringsBehaveLikeValueTypes()
+    {
+        var name = "aarti";
+        var upper = MakeUpperCase(name);
+    
+        Assert.Equal("aarti", name);
+        Assert.Equal("AARTI", upper);
+    }
+        private string MakeUpperCase(string parameter)
+        {
+           return parameter.ToUpper(); 
+        }
+
+
+    [Fact]
+    public void ValueTypesInt()
+    {
+        var x = GetInt();
+        SetInt(ref x);
+
+        Assert.Equal(42,x);
+    }
+        private void SetInt(ref int z)
+        {
+          z = 42;
+        }
+        public int GetInt()
+        {
+            return 3;
+        }
+
 
     [Fact]
     public void GetBookReturnsDifferentObjects()
@@ -16,11 +48,11 @@ public class TypeTests
         Assert.Equal("Book 1", book1.Name);
         Assert.Equal("Book 2", book2.Name);
     }
-
        Book GetBook(string name)
-    {
-        return new Book(name);
-    }
+        {
+            return new Book(name);
+        }
+
 
     [Fact]
     public void CSharpCanPassByRef()
@@ -32,11 +64,11 @@ public class TypeTests
        
         Assert.Equal("NewBook", book1.Name);
     }
-
-    private void GetBookSetNameByRef(ref Book book, string name)
-    {
-        book = new Book(name);
-    }
+        private void GetBookSetNameByRef(ref Book book, string name)
+        {
+            // book = new Book(name);
+            book.Name = name; //works but logic???
+        }
 
 
     [Fact]
@@ -49,12 +81,11 @@ public class TypeTests
        
         Assert.Equal("Book 1", book1.Name);
     }
-
-    private void GetBookSetName(Book book, string name)
-     {
-        book = new Book(name);
-        // book.Name = name;
-     }
+        private void GetBookSetName(Book book, string name)
+        {
+            book = new Book(name);
+            // book.Name = name;
+        }
 
 
     [Fact]
@@ -66,10 +97,10 @@ public class TypeTests
         Assert.Equal("NewBook", book1.Name);
     }
 
-    private void SetName(Book book, string name)
-    { 
-        book.Name = name;
-    }
+        private void SetName(Book book, string name)
+        { 
+            book.Name = name;
+        }
 
 
     [Fact]
@@ -88,3 +119,5 @@ public class TypeTests
 
 // assert.equal -> checks that objects have same type and value
 // assert.same -> checks if reference indicate the same object in memory. 
+// for checking if a type is struct or class (ref by val or ref by ref), put the cursor on the type and press F12 to see the sourcecode.
+// string is a ref type but behaves like a value type.
