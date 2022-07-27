@@ -15,6 +15,11 @@ namespace GradeBook{
             book.AddGrade(89.1);
             book.AddGrade(90.5);
             book.AddGrade(77.5);
+            book.AddGrade(105);
+            book.AddGrade(-45);
+            book.AddGrade(0);
+            book.AddGrade(50);
+            book.AddGrade(100);
             var stats = book.GetStatistics();
 
             Console.WriteLine($"The Average is {stats.Average:N2}"); // Average:N2 formatted the result to give 2 digits after decimal point.

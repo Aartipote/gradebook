@@ -20,7 +20,7 @@ namespace GradeBook
             }
             else
             {
-                Console.WriteLine("Grade is not valid");
+                Console.WriteLine($"{grade}: This grade is not valid");
             }
         }
 
@@ -31,14 +31,43 @@ namespace GradeBook
             result.highGrade = double.MinValue;
             result.lowGrade = double.MaxValue;
 
-             foreach(var grade in grades)
+            /* foreach(var grade in grades)   <--- foreach loop
             {
                 result.highGrade  = Math.Max(grade, result.highGrade);
                 result.lowGrade = Math.Min(grade, result.lowGrade);
                 result.Average += grade;
-            }
+            } */
 
-             result.Average /= grades.Count; 
+
+            // do..while loop: always executes atleast once.   <--- do..while
+           /* var index = 0;
+            do
+            {
+                result.highGrade  = Math.Max(grades[index], result.highGrade);
+                result.lowGrade = Math.Min(grades[index], result.lowGrade);
+                result.Average += grades[index];
+                index++ ;
+                
+            } while (index < grades.Count); */
+
+            /* var index = 0;              <--- while loop
+            while (index < grades.Count)
+            {
+                result.highGrade  = Math.Max(grades[index], result.highGrade);
+                result.lowGrade = Math.Min(grades[index], result.lowGrade);
+                result.Average += grades[index];
+                index++ ;
+            } */
+
+
+            for(var index = 0; index < grades.Count; index++)   
+            {
+                result.highGrade  = Math.Max(grades[index], result.highGrade);
+                result.lowGrade = Math.Min(grades[index], result.lowGrade);
+                result.Average += grades[index];
+            } 
+
+            result.Average /= grades.Count; 
 
              return result;
 

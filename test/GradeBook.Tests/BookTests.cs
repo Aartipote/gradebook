@@ -27,15 +27,9 @@ public class BookTests
 
     }
 
-    // [Fact]
-
-    // public void EnteredGradeValid()
-    // {
-    //     book.AddGrade(105);
-    //     Book.grades
-    //     Assert.Equal(105, grades[]);
-    // }
 }
+
+  
 }
 // Notes:
 
