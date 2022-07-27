@@ -14,6 +14,7 @@ public class BookTests
         book.AddGrade(89.1);
         book.AddGrade(90.5);
         book.AddGrade(77.3);
+        book.AddGrade(105);
 
         //act
         var result = book.GetStatistics();
@@ -22,9 +23,18 @@ public class BookTests
         Assert.Equal(85.6, result.Average, 1);
         Assert.Equal(90.5, result.highGrade);
         Assert.Equal(77.3, result.lowGrade);
+        Assert.Equal(77.3, book.grades.Last());
 
-    
     }
+
+    // [Fact]
+
+    // public void EnteredGradeValid()
+    // {
+    //     book.AddGrade(105);
+    //     Book.grades
+    //     Assert.Equal(105, grades[]);
+    // }
 }
 }
 // Notes:

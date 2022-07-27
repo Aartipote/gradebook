@@ -4,7 +4,7 @@ namespace GradeBook
 {  
       public class Book // by default have the access modifier as internal which causes the methods, fields being restricted to be accessed only inside the project.
       {
-        private List<double> grades;
+        public List<double> grades;
         public string Name;
 
         public Book(string name)
@@ -14,7 +14,14 @@ namespace GradeBook
         }
         public void AddGrade(double grade)
         {
+            if( grade <= 100 && grade >= 0)
+            {
             grades.Add(grade);
+            }
+            else
+            {
+                Console.WriteLine("Grade is not valid");
+            }
         }
 
         public Statistics GetStatistics()
