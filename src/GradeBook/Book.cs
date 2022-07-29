@@ -62,6 +62,16 @@ namespace GradeBook
 
             for(var index = 0; index < grades.Count; index++)   
             {
+                if(grades[index] == 42.1)
+                {
+                    //break;  // break statement helps in breaking out of a loop 
+                    //continue; // which makes the control to jump at the beginning of the loop for next iteration
+                   /* goto done;
+                    done: */  
+
+                }
+                
+                
                 result.highGrade  = Math.Max(grades[index], result.highGrade);
                 result.lowGrade = Math.Min(grades[index], result.lowGrade);
                 result.Average += grades[index];
@@ -93,3 +103,4 @@ namespace GradeBook
 
 // if AddGrade method is made static, then it would not be associated with an instance, however the grades field is still an object instance. 
 // Making the grades static would make the whole application have only one list of grades.
+
