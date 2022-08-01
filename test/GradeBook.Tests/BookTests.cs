@@ -23,7 +23,9 @@ public class BookTests
         Assert.Equal(85.6, result.Average, 1);
         Assert.Equal(90.5, result.highGrade);
         Assert.Equal(77.3, result.lowGrade);
+        Assert.Equal('B', result.Letter);
         Assert.Equal(77.3, book.grades.Last());
+        
 
     }
 

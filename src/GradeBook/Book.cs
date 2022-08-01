@@ -12,6 +12,7 @@ namespace GradeBook
             grades = new List<double>();
             Name = name;
         }
+
         public void AddGrade(double grade)
         {
             if( grade <= 100 && grade >= 0)
@@ -62,16 +63,6 @@ namespace GradeBook
 
             for(var index = 0; index < grades.Count; index++)   
             {
-                if(grades[index] == 42.1)
-                {
-                    //break;  // break statement helps in breaking out of a loop 
-                    //continue; // which makes the control to jump at the beginning of the loop for next iteration
-                   /* goto done;
-                    done: */  
-
-                }
-                
-                
                 result.highGrade  = Math.Max(grades[index], result.highGrade);
                 result.lowGrade = Math.Min(grades[index], result.lowGrade);
                 result.Average += grades[index];
@@ -79,6 +70,30 @@ namespace GradeBook
 
             result.Average /= grades.Count; 
 
+            switch(result.Average)
+            { 
+                case var d when d >= 90.0:
+                    result.Letter = 'A';
+                    break;
+                
+                case var d when d >= 80.0: //& d < 90:
+                    result.Letter = 'B';
+                    break;
+                
+                case var d when d >= 70.0:
+                    result.Letter = 'C';
+                    break;
+                
+                case var d when d >= 60.0:
+                    result.Letter = 'D';
+                    break;
+                
+                case var d when d >= 50.0:
+                    result.Letter = 'F';
+                    break;
+
+            }
+             
              return result;
 
             // var result = 0.0;
@@ -92,7 +107,7 @@ namespace GradeBook
             //     lowGrade = Math.Min(number, lowGrade);
             //     result += number;
             // }
-
+            
             // var Average = (result / count); // or result /= grades.Count; 
 
         }

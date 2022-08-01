@@ -12,19 +12,36 @@ namespace GradeBook{
             // Program.Main(args); // static methos is accessed by type(/class) name 
 
             var book = new Book("Aarti's Grade Book");
-            book.AddGrade(89.1);
-            book.AddGrade(90.5);
-            book.AddGrade(77.5);
-            book.AddGrade(105);
-            book.AddGrade(-45);
-            book.AddGrade(0);
-            book.AddGrade(50);
-            book.AddGrade(100);
+            // book.AddGrade(89.1);
+            // book.AddGrade(90.5);
+
+            var done = false;
+
+            while(done == false){
+
+                System.Console.WriteLine("Enter a grade or 'q' to quit");
+                var input = Console.ReadLine() ?? string.Empty;
+        
+                if (input == "q" || string.IsNullOrEmpty(input))
+                {
+                    done = true;
+                    continue;
+                }
+
+                var grade = double.Parse(input);
+                book.AddGrade(grade);
+
+            }
+
+
             var stats = book.GetStatistics();
 
             Console.WriteLine($"The Average is {stats.Average:N2}"); // Average:N2 formatted the result to give 2 digits after decimal point.
             Console.WriteLine($"The highGrade is {stats.highGrade}");
             Console.WriteLine($"The lowGrade is {stats.lowGrade}");
+            Console.WriteLine($"The Grade is {stats.Letter}");
+            // Console.WriteLine($" {book.Name}'s Grade is {stats.Letter}");
+            // Console.WriteLine($" Last member is {book.grades.Last()}");
 
             // book.grades.add(79.0) will show error as grades is a variable declared private to be only used in Book class. 
             // However if it was declared to be public then it could be accessed.
