@@ -5,8 +5,27 @@ namespace GradeBook
       public class Book // by default have the access modifier as internal which causes the methods, fields being restricted to be accessed only inside the project.
       {
         public List<double> grades;
-        public string Name;
 
+       // public string Name; // Name was set public for convenience to accesss outside. A property can be made to make the field protected as well as safely write and read the book name string.
+       // private string name = string.Empty; // for avoiding null warning make the string empty.
+        public string Name // property for modifying or getting the book name. Property helps in increasing accessibility of a private field
+        {
+            get; 
+            private set; //effectively read-only. 
+            
+            // get
+            // {
+            //     return name;
+            // }
+            // set
+            // {
+            //     if(!String.IsNullOrEmpty(value))
+            //     {
+            //         name = value;
+            //     }
+            // }
+
+        }
         public Book(string name)
         {
             grades = new List<double>();
@@ -21,8 +40,43 @@ namespace GradeBook
             }
             else
             {
-                throw new ArgumentException($"Invalid {nameof(grade)}");
+                throw new ArgumentException($"Invalid {nameof(grade)}"); // delberatively threw an exception to catch it later.... Exceptions are thrown to handle error conditions later..
+                // after throwing of exception the code searches for catch in that method and then in the method that called this method.
             }
+        }
+
+        public void AddGrade(char letter)
+        {
+            switch(letter)
+            {
+            
+            case 'A':
+                AddGrade(90);
+                break;
+
+            case 'B':
+                AddGrade(80);
+                break;
+
+            case 'C':
+                AddGrade(70);
+                break;
+
+            case 'D':
+                AddGrade(60);
+                break;
+
+            case 'E':
+                AddGrade(50);
+                break;
+
+            default:
+                AddGrade(0);
+                break;
+
+            }
+            
+
         }
 
         public Statistics GetStatistics()
@@ -89,7 +143,7 @@ namespace GradeBook
                     break;
                 
                 case var d when d >= 50.0:
-                    result.Letter = 'F';
+                    result.Letter = 'E';
                     break;
 
             }
@@ -119,3 +173,8 @@ namespace GradeBook
 // if AddGrade method is made static, then it would not be associated with an instance, however the grades field is still an object instance. 
 // Making the grades static would make the whole application have only one list of grades.
 
+
+// Method overloading - the c# can differentiate btw two methods with the same method name by looking at the method signature(methodname and parameters passed) and does not look into the return type of the method.
+
+// Members of class - fields, methods, property
+// A property is similar to a field, it can encapsulate a state and it can store data for an object.

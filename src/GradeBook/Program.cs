@@ -28,14 +28,31 @@ namespace GradeBook{
                     continue;
                 }
 
-                var grade = double.Parse(input);
-                book.AddGrade(grade);
-
+                try
+                {
+                    var grade = double.Parse(input);
+                    book.AddGrade(grade);
+                }
+                catch(ArgumentException ex)
+                {
+                    Console.WriteLine($"{ex.Message}");
+                }
+                catch(FormatException ex)
+                {
+                    Console.WriteLine($"{ex.Message}");
+                }
+                // finally
+                // {
+                //     Console.WriteLine("****"); // finally block is executed regardless of an exception happening or not. It is where, you want the code to be executed always.
+                // }
             }
 
 
             var stats = book.GetStatistics();
-
+       
+            book.Name = "Aarya's Grade Book"; // passing value to Name property
+    
+            Console.WriteLine($"For the book named {book.Name}");
             Console.WriteLine($"The Average is {stats.Average:N2}"); // Average:N2 formatted the result to give 2 digits after decimal point.
             Console.WriteLine($"The highGrade is {stats.highGrade}");
             Console.WriteLine($"The lowGrade is {stats.lowGrade}");
