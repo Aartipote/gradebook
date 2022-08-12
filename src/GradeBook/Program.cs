@@ -50,13 +50,14 @@ namespace GradeBook{
 
             var stats = book.GetStatistics();
        
-            book.Name = "Aarya's Grade Book"; // passing value to Name property
+            // book.Name = "Aarya's Grade Book"; // passing value to Name property
     
-            Console.WriteLine($"For the book named {book.Name}");
+            // Console.WriteLine($"For the book named {book.Name}");
             Console.WriteLine($"The Average is {stats.Average:N2}"); // Average:N2 formatted the result to give 2 digits after decimal point.
             Console.WriteLine($"The highGrade is {stats.highGrade}");
             Console.WriteLine($"The lowGrade is {stats.lowGrade}");
             Console.WriteLine($"The Grade is {stats.Letter}");
+            Console.WriteLine($"{Book.CATEGORY}");
             // Console.WriteLine($" {book.Name}'s Grade is {stats.Letter}");
             // Console.WriteLine($" Last member is {book.grades.Last()}");
 

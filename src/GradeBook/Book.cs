@@ -30,8 +30,11 @@ namespace GradeBook
         {
             grades = new List<double>();
             Name = name;
+            category = ""; // readonly field
         }
 
+        readonly string category; // readyonly allows to create a field which can be initialized, changed or write to only in the constructor.
+        public const string CATEGORY = "Sci"; //field in caps to visualize it as an const
         public void AddGrade(double grade)
         {
             if( grade <= 100 && grade >= 0)
@@ -175,6 +178,12 @@ namespace GradeBook
 
 
 // Method overloading - the c# can differentiate btw two methods with the same method name by looking at the method signature(methodname and parameters passed) and does not look into the return type of the method.
+// Constructors can also be overloaded. 
 
-// Members of class - fields, methods, property
+// Members of class - fields, methods, property, events
 // A property is similar to a field, it can encapsulate a state and it can store data for an object.
+
+// A static member of a class cannot be accessed via a object reference, it can be accessed by a type name
+
+// readonly are nice to have when you are sure an object's fields should not be changed by any other property or method. You know what the values are when the object comes to life.
+// fields and variables declared "const" cannot be changed. const variables can be accessed anywhere by declaring them as public.
