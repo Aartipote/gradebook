@@ -4,14 +4,15 @@ namespace GradeBook
 {  
       public class Book // by default have the access modifier as internal which causes the methods, fields being restricted to be accessed only inside the project.
       {
+        readonly string category; // readyonly allows to create a field which can be initialized, changed or write to only in the constructor.
+        public const string CATEGORY = "Sci"; //field in caps to visualize it as an const
         public List<double> grades;
-
        // public string Name; // Name was set public for convenience to accesss outside. A property can be made to make the field protected as well as safely write and read the book name string.
        // private string name = string.Empty; // for avoiding null warning make the string empty.
         public string Name // property for modifying or getting the book name. Property helps in increasing accessibility of a private field
         {
             get; 
-            private set; //effectively read-only. 
+            set; //if declared private, it will be effectively read-only as only can be accessed in the class it has been defined. will be out of scope for any other class.  
             
             // get
             // {
@@ -32,9 +33,6 @@ namespace GradeBook
             Name = name;
             category = ""; // readonly field
         }
-
-        readonly string category; // readyonly allows to create a field which can be initialized, changed or write to only in the constructor.
-        public const string CATEGORY = "Sci"; //field in caps to visualize it as an const
         public void AddGrade(double grade)
         {
             if( grade <= 100 && grade >= 0)
@@ -187,3 +185,5 @@ namespace GradeBook
 
 // readonly are nice to have when you are sure an object's fields should not be changed by any other property or method. You know what the values are when the object comes to life.
 // fields and variables declared "const" cannot be changed. const variables can be accessed anywhere by declaring them as public.
+
+// delegate is used to define a variable to define or point to a method. Delegate methods have a particular structure.
