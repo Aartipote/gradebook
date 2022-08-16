@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace GradeBook{
+namespace GradeBook
+{
 
     class Program
     {
@@ -14,6 +15,10 @@ namespace GradeBook{
             var book = new Book("Aarti's Grade Book");
             // book.AddGrade(89.1);
             // book.AddGrade(90.5);
+            book.GradeAdded += OnGradeAdded;
+            book.GradeAdded += OnGradeAdded;
+            book.GradeAdded -= OnGradeAdded;
+
 
             var done = false;
 
@@ -58,6 +63,7 @@ namespace GradeBook{
             Console.WriteLine($"The lowGrade is {stats.lowGrade}");
             Console.WriteLine($"The Grade is {stats.Letter}");
             Console.WriteLine($"{Book.CATEGORY}");
+  
             // Console.WriteLine($" {book.Name}'s Grade is {stats.Letter}");
             // Console.WriteLine($" Last member is {book.grades.Last()}");
 
@@ -75,6 +81,13 @@ namespace GradeBook{
             // {
             //     Console.WriteLine("Hello!!");
             // }
+
+            static void OnGradeAdded(object sender, EventArgs e)
+            {
+                Console.WriteLine("A Grade was Added");
+            }
+
+
         }
     }
 }

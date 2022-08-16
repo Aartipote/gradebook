@@ -2,9 +2,10 @@ using System.Collections.Generic;
 
 namespace GradeBook
 {  
+      public delegate void GradeAddedDelegate(object sender, EventArgs args); // EventArgs is a class used when an event does not have any data associated with it, i.e when an event is only used to notify about an event and not pass any data.
       public class Book // by default have the access modifier as internal which causes the methods, fields being restricted to be accessed only inside the project.
       {
-        readonly string category; // readyonly allows to create a field which can be initialized, changed or write to only in the constructor.
+        // readonly string category; // readyonly allows to create a field which can be initialized, changed or write to only in the constructor.
         public const string CATEGORY = "Sci"; //field in caps to visualize it as an const
         public List<double> grades;
        // public string Name; // Name was set public for convenience to accesss outside. A property can be made to make the field protected as well as safely write and read the book name string.
@@ -13,7 +14,7 @@ namespace GradeBook
         {
             get; 
             set; //if declared private, it will be effectively read-only as only can be accessed in the class it has been defined. will be out of scope for any other class.  
-            
+             
             // get
             // {
             //     return name;
@@ -31,13 +32,19 @@ namespace GradeBook
         {
             grades = new List<double>();
             Name = name;
-            category = ""; // readonly field
+            // category = "Science"; // readonly field
         }
         public void AddGrade(double grade)
         {
             if( grade <= 100 && grade >= 0)
             {
-            grades.Add(grade);
+                grades.Add(grade);
+                if(GradeAdded != null)
+                {
+                    GradeAdded(this, new EventArgs());
+                }
+
+
             }
             else
             {
@@ -45,6 +52,9 @@ namespace GradeBook
                 // after throwing of exception the code searches for catch in that method and then in the method that called this method.
             }
         }
+
+
+        public event GradeAddedDelegate GradeAdded = null!; 
 
         public void AddGrade(char letter)
         {

@@ -14,7 +14,7 @@ public class BookTests
         book.AddGrade(89.1);
         book.AddGrade(90.5);
         book.AddGrade(77.3);
-        book.AddGrade(105);
+        // book.AddGrade(105);
 
         //act
         var result = book.GetStatistics();

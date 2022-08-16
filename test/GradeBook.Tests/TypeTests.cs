@@ -5,21 +5,36 @@ namespace GradeBook.Tests
 {
     
     public delegate string WriteLogDelegate(string logMessage); 
+
     public class TypeTests
     {   
+        int count = 0;
+       
         [Fact]
-        public void WriteLogDelegateCanPointToMethod()
+        public void WriteLogDelegateCanPointToAnotherMethod() 
         {
-            WriteLogDelegate log;
-            log = ReturnMessage;
+            // WriteLogDelegate log; // delegate field
+            // log = ReturnMessage; // log = new WriteLogDelegate(ReturnMessage);  //delegate variable pointing to a method
 
-            var result = log("Hello!!");
+            WriteLogDelegate log = ReturnMessage;
+            log +=ReturnMessage;
+            log +=AnotherIncrementDelegate;
+            log +=AnotherIncrementDelegate;
 
-            Assert.Equal("Hello!!", result);
+            var result = log("Hello!!"); // invoking mulitple delegate methods as delegate defined as return type and parameter type as string.
+
+            Assert.Equal(4, count); 
         }
 
-        string ReturnMessage(string message)
+        string AnotherIncrementDelegate(string message) // another method that delegate can point to as return type is string and has one parameter string.
         {
+           count += 1;
+           return message; 
+        }
+        
+        string ReturnMessage(string message) // a method that delegate can point to as return type is string and has one parameter string.
+        {
+           count += 1;
            return message; 
         }
 
