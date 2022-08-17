@@ -12,58 +12,27 @@ namespace GradeBook
             // p.Main(args); // Main being static cannot be accessed via instance reference 
             // Program.Main(args); // static methos is accessed by type(/class) name 
 
-            var book = new Book("Aarti's Grade Book");
+            var book = new InMemoryBook("Aarti's Grade Book");
             // book.AddGrade(89.1);
-            // book.AddGrade(90.5);
+
             book.GradeAdded += OnGradeAdded;
-            book.GradeAdded += OnGradeAdded;
-            book.GradeAdded -= OnGradeAdded;
+            // book.GradeAdded += OnGradeAdded;
+            // book.GradeAdded -= OnGradeAdded;
 
 
-            var done = false;
-
-            while(done == false){
-
-                System.Console.WriteLine("Enter a grade or 'q' to quit");
-                var input = Console.ReadLine() ?? string.Empty;
-        
-                if (input == "q" || string.IsNullOrEmpty(input))
-                {
-                    done = true;
-                    continue;
-                }
-
-                try
-                {
-                    var grade = double.Parse(input);
-                    book.AddGrade(grade);
-                }
-                catch(ArgumentException ex)
-                {
-                    Console.WriteLine($"{ex.Message}");
-                }
-                catch(FormatException ex)
-                {
-                    Console.WriteLine($"{ex.Message}");
-                }
-                // finally
-                // {
-                //     Console.WriteLine("****"); // finally block is executed regardless of an exception happening or not. It is where, you want the code to be executed always.
-                // }
-            }
-
+            EnterGrades(book);
 
             var stats = book.GetStatistics();
-       
+
             // book.Name = "Aarya's Grade Book"; // passing value to Name property
-    
+
             // Console.WriteLine($"For the book named {book.Name}");
             Console.WriteLine($"The Average is {stats.Average:N2}"); // Average:N2 formatted the result to give 2 digits after decimal point.
             Console.WriteLine($"The highGrade is {stats.highGrade}");
             Console.WriteLine($"The lowGrade is {stats.lowGrade}");
             Console.WriteLine($"The Grade is {stats.Letter}");
-            Console.WriteLine($"{Book.CATEGORY}");
-  
+            Console.WriteLine($"{InMemoryBook.CATEGORY}");
+
             // Console.WriteLine($" {book.Name}'s Grade is {stats.Letter}");
             // Console.WriteLine($" Last member is {book.grades.Last()}");
 
@@ -86,8 +55,44 @@ namespace GradeBook
             {
                 Console.WriteLine("A Grade was Added");
             }
+     
 
+        }
 
+        private static void EnterGrades(Book book)
+        {
+            var done = false;
+
+            while (done == false)
+            {
+
+                System.Console.WriteLine("Enter a grade or 'q' to quit");
+                var input = Console.ReadLine() ?? string.Empty;
+
+                if (input == "q" || string.IsNullOrEmpty(input))
+                {
+                    done = true;
+                    continue;
+                }
+
+                try
+                {
+                    var grade = double.Parse(input);
+                    book.AddGrade(grade);
+                }
+                catch (ArgumentException ex)
+                {
+                    Console.WriteLine($"{ex.Message}");
+                }
+                catch (FormatException ex)
+                {
+                    Console.WriteLine($"{ex.Message}");
+                }
+                // finally
+                // {
+                //     Console.WriteLine("****"); // finally block is executed regardless of an exception happening or not. It is where, you want the code to be executed always.
+                // }
+            }
         }
     }
 }
