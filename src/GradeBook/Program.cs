@@ -31,7 +31,7 @@ namespace GradeBook
             Console.WriteLine($"The highGrade is {stats.highGrade}");
             Console.WriteLine($"The lowGrade is {stats.lowGrade}");
             Console.WriteLine($"The Grade is {stats.Letter}");
-            Console.WriteLine($"{InMemoryBook.CATEGORY}");
+            // Console.WriteLine($"{InMemoryBook.CATEGORY}");
 
             // Console.WriteLine($" {book.Name}'s Grade is {stats.Letter}");
             // Console.WriteLine($" Last member is {book.grades.Last()}");
@@ -59,7 +59,7 @@ namespace GradeBook
 
         }
 
-        private static void EnterGrades(Book book)
+        private static void EnterGrades(IBook book)
         {
             var done = false;
 

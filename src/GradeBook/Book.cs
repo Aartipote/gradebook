@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 
+
 namespace GradeBook
 {  
       public delegate void GradeAddedDelegate(object sender, EventArgs args); // EventArgs is a class used when an event does not have any data associated with it, i.e when an event is only used to notify about an event and not pass any data.
@@ -18,16 +19,54 @@ namespace GradeBook
   
       }
 
-      public abstract class Book : NamedObject
+      public interface IBook
+      {
+        void AddGrade(double grade);
+        Statistics GetStatistics();
+        string Name { get; }
+
+        event GradeAddedDelegate GradeAdded;
+
+      }
+
+      public class DiskBook: Book
+      {
+        public DiskBook(string name) : base(name) 
+        {
+            Name = name;
+
+        }
+
+        public override event GradeAddedDelegate GradeAdded;
+
+        public override void AddGrade(double grade)
+        {
+            var writer = File.AppendText($"{Name}.txt");
+            
+            writer.WriteLine(grade);
+        }
+
+        public override Statistics GetStatistics()
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+      public abstract class Book : NamedObject, IBook  //Abstract class is a restricted class that cannot be used to create objects.
       {
         protected Book(string name) : base(name)
         {
         }
 
-        public abstract void AddGrade(double grade);
-      }
+        public abstract event GradeAddedDelegate GradeAdded;
 
-      public class InMemoryBook : Book // NamedObject is the base class 
+        public abstract void AddGrade(double grade); // Abstract methods can only be used in an abstract class and does not have a body. The boy is provided by the derived class.
+
+        public abstract Statistics GetStatistics();
+      
+    }
+
+      public class InMemoryBook : Book
       // by default have the access modifier as internal which causes the methods, fields being restricted to be accessed only inside the project.
       {
         // readonly string category; // readyonly allows to create a field which can be initialized, changed or write to only in the constructor.
@@ -80,7 +119,7 @@ namespace GradeBook
         }
 
 
-        public event GradeAddedDelegate GradeAdded = null!; 
+        public override event GradeAddedDelegate GradeAdded = null!; 
 
         public void AddGrade(char letter)
         {
@@ -116,7 +155,7 @@ namespace GradeBook
 
         }
 
-        public Statistics GetStatistics()
+        public override Statistics GetStatistics()
         {
             var result = new Statistics();
             result.Average = 0.0;
