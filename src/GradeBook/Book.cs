@@ -1,59 +1,79 @@
 using System.Collections.Generic;
-
+using System.IO;
 
 namespace GradeBook
-{  
-      public delegate void GradeAddedDelegate(object sender, EventArgs args); // EventArgs is a class used when an event does not have any data associated with it, i.e when an event is only used to notify about an event and not pass any data.
-      
-      public class NamedObject // Base class, which is used to inherit the Name property
-      {
-        public string Name 
+{
+    public delegate void GradeAddedDelegate(object sender, EventArgs args); // EventArgs is a class used when an event does not have any data associated with it, i.e when an event is only used to notify about an event and not pass any data.
+
+    public class NamedObject // Base class, which is used to inherit the Name property
+    {
+        public string Name
         {
             get;
             set;
         }
-         public NamedObject(string name)
-        { 
+        public NamedObject(string name)
+        {
             Name = name;
         }
-  
-      }
 
-      public interface IBook
-      {
+    }
+
+    public interface IBook
+    {
         void AddGrade(double grade);
         Statistics GetStatistics();
         string Name { get; }
 
         event GradeAddedDelegate GradeAdded;
 
-      }
+    }
 
-      public class DiskBook: Book
-      {
-        public DiskBook(string name) : base(name) 
+    public class DiskBook : Book
+    {
+        public DiskBook(string name) : base(name)
         {
             Name = name;
 
         }
 
-        public override event GradeAddedDelegate GradeAdded;
+        public override event GradeAddedDelegate? GradeAdded;
 
         public override void AddGrade(double grade)
         {
-            var writer = File.AppendText($"{Name}.txt");
-            
-            writer.WriteLine(grade);
+            using (var writer = File.AppendText($"{Name}.txt"))
+            {
+                writer.WriteLine(grade);
+                if (GradeAdded != null)
+                {
+                    GradeAdded(this, new EventArgs());
+                }
+
+                // handle IO Exception by releasing the object being used.
+            }
+
         }
 
         public override Statistics GetStatistics()
         {
-            throw new NotImplementedException();
+            var result = new Statistics();
+            using (var reader = File.OpenText($"{Name}.txt"))
+            {
+                var score = reader.ReadLine();
+
+                while (score != null)
+                {
+                    result.Add(Double.Parse(score));
+                    score = reader.ReadLine();
+                }
+
+                return result;
+            }
         }
     }
 
-      public abstract class Book : NamedObject, IBook  //Abstract class is a restricted class that cannot be used to create objects.
-      {
+    public abstract class Book : NamedObject, IBook  //Abstract class is a restricted class that cannot be used to create objects.
+    {
         protected Book(string name) : base(name)
         {
         }
@@ -63,23 +83,23 @@ namespace GradeBook
         public abstract void AddGrade(double grade); // Abstract methods can only be used in an abstract class and does not have a body. The boy is provided by the derived class.
 
         public abstract Statistics GetStatistics();
-      
+
     }
 
-      public class InMemoryBook : Book
-      // by default have the access modifier as internal which causes the methods, fields being restricted to be accessed only inside the project.
-      {
+    public class InMemoryBook : Book
+    // by default have the access modifier as internal which causes the methods, fields being restricted to be accessed only inside the project.
+    {
         // readonly string category; // readyonly allows to create a field which can be initialized, changed or write to only in the constructor.
         public const string CATEGORY = "Sci"; //field in caps to visualize it as an const
         public List<double> grades;
-       // public string Name; // Name was set public for convenience to accesss outside. A property can be made to make the field protected as well as safely write and read the book name string.
-       // private string name = string.Empty; // for avoiding null warning make the string empty.
+        // public string Name; // Name was set public for convenience to accesss outside. A property can be made to make the field protected as well as safely write and read the book name string.
+        // private string name = string.Empty; // for avoiding null warning make the string empty.
 
         // public string Name // property for modifying or getting the book name. Property helps in increasing accessibility of a private field
         // {
         //     get; 
         //     set; //if declared private, it will be effectively read-only as only can be accessed in the class it has been defined. will be out of scope for any other class.  
-             
+
         //     // get
         //     // {
         //     //     return name;
@@ -101,15 +121,13 @@ namespace GradeBook
         }
         public override void AddGrade(double grade)
         {
-            if( grade <= 100 && grade >= 0)
+            if (grade <= 100 && grade >= 0)
             {
                 grades.Add(grade);
-                if(GradeAdded != null)
+                if (GradeAdded != null)
                 {
                     GradeAdded(this, new EventArgs());
                 }
-
-
             }
             else
             {
@@ -118,129 +136,69 @@ namespace GradeBook
             }
         }
 
-
-        public override event GradeAddedDelegate GradeAdded = null!; 
+        public override event GradeAddedDelegate GradeAdded = null!;
 
         public void AddGrade(char letter)
         {
-            switch(letter)
+            switch (letter)
             {
-            
-            case 'A':
-                AddGrade(90);
-                break;
 
-            case 'B':
-                AddGrade(80);
-                break;
+                case 'A':
+                    AddGrade(90);
+                    break;
 
-            case 'C':
-                AddGrade(70);
-                break;
+                case 'B':
+                    AddGrade(80);
+                    break;
 
-            case 'D':
-                AddGrade(60);
-                break;
+                case 'C':
+                    AddGrade(70);
+                    break;
 
-            case 'E':
-                AddGrade(50);
-                break;
+                case 'D':
+                    AddGrade(60);
+                    break;
 
-            default:
-                AddGrade(0);
-                break;
+                case 'E':
+                    AddGrade(50);
+                    break;
+
+                default:
+                    AddGrade(0);
+                    break;
 
             }
-            
+
 
         }
 
         public override Statistics GetStatistics()
         {
             var result = new Statistics();
-            result.Average = 0.0;
-            result.highGrade = double.MinValue;
-            result.lowGrade = double.MaxValue;
 
-            /* foreach(var grade in grades)   <--- foreach loop
+            for (var index = 0; index < grades.Count; index++)
             {
-                result.highGrade  = Math.Max(grade, result.highGrade);
-                result.lowGrade = Math.Min(grade, result.lowGrade);
-                result.Average += grade;
-            } */
-
-
-            // do..while loop: always executes atleast once.   <--- do..while
-           /* var index = 0;
-            do
-            {
-                result.highGrade  = Math.Max(grades[index], result.highGrade);
-                result.lowGrade = Math.Min(grades[index], result.lowGrade);
-                result.Average += grades[index];
-                index++ ;
-                
-            } while (index < grades.Count); */
-
-            /* var index = 0;              <--- while loop
-            while (index < grades.Count)
-            {
-                result.highGrade  = Math.Max(grades[index], result.highGrade);
-                result.lowGrade = Math.Min(grades[index], result.lowGrade);
-                result.Average += grades[index];
-                index++ ;
-            } */
-
-
-            for(var index = 0; index < grades.Count; index++)   
-            {
-                result.highGrade  = Math.Max(grades[index], result.highGrade);
-                result.lowGrade = Math.Min(grades[index], result.lowGrade);
-                result.Average += grades[index];
-            } 
-
-            result.Average /= grades.Count; 
-
-            switch(result.Average)
-            { 
-                case var d when d >= 90.0:
-                    result.Letter = 'A';
-                    break;
-                
-                case var d when d >= 80.0: //& d < 90:
-                    result.Letter = 'B';
-                    break;
-                
-                case var d when d >= 70.0:
-                    result.Letter = 'C';
-                    break;
-                
-                case var d when d >= 60.0:
-                    result.Letter = 'D';
-                    break;
-                
-                case var d when d >= 50.0:
-                    result.Letter = 'E';
-                    break;
-
+                result.Add(grades[index]);
             }
-             
-             return result;
 
-            // var result = 0.0;
-            // var count = grades.Count;
-            // var highGrade = double.MinValue;
-            // var lowGrade = double.MaxValue;
-
-            //  foreach(var number in grades)
-            // {
-            //     highGrade = Math.Max(number, highGrade);
-            //     lowGrade = Math.Min(number, lowGrade);
-            //     result += number;
-            // }
-            
-            // var Average = (result / count); // or result /= grades.Count; 
-
+            return result;
         }
+
+        //  return result;
+
+        // var result = 0.0;
+        // var count = grades.Count;
+        // var highGrade = double.MinValue;
+        // var lowGrade = double.MaxValue;
+
+        //  foreach(var number in grades)
+        // {
+        //     highGrade = Math.Max(number, highGrade);
+        //     lowGrade = Math.Min(number, lowGrade);
+        //     result += number;
+        // }
+
+        // var Average = (result / count); // or result /= grades.Count; 
 
     }
 

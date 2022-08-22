@@ -12,7 +12,7 @@ namespace GradeBook
             // p.Main(args); // Main being static cannot be accessed via instance reference 
             // Program.Main(args); // static methos is accessed by type(/class) name 
 
-            var book = new InMemoryBook("Aarti's Grade Book");
+            IBook book = new InMemoryBook("Aarti's Grade Book");
             // book.AddGrade(89.1);
 
             book.GradeAdded += OnGradeAdded;
